@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  gateway:
+    build: gateway
+    image: gateway
+    container_name: sns-gateway
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+  sns-db:
+    image: postgres:14-alpine
+    container_name: sns-db
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  security:
+    build: security
+    image: security
+    container_name: sns-security
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://sns-db/postgres
