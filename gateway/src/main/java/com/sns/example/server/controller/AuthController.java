@@ -6,27 +6,33 @@ import com.sns.example.server.dto.RefreshJwtRequest;
 import com.sns.example.server.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService service;
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest request) {
-        return service.login(request);
+    public JwtResponse login(@RequestBody AuthRequest request, HttpServletResponse response) {
+        JwtResponse jwtResponse = service.login(request);
+
+        Cookie cookie = new Cookie("refreshToken", jwtResponse.getRefreshToken());
+        response.addCookie(cookie);
+
+        return jwtResponse;
     }
 
     @PostMapping("/token")
-    public JwtResponse getNewAccessToken(@RequestBody RefreshJwtRequest request) {
-        return service.getNewAccessToken(request);
+    public JwtResponse getNewAccessToken(HttpServletRequest request) {
+        return service.getNewAccessToken(new RefreshJwtRequest(request.getCookies()[0].getValue()));
     }
 
     @PostMapping("/refresh")

@@ -1,5 +1,6 @@
 package com.sns.example.server.controller;
 
+import com.sns.example.server.dto.TestResponse;
 import com.sns.example.server.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,11 @@ public class Controller {
     @GetMapping("/hello/user")
     public ResponseEntity<String> helloUser() {
         return ResponseEntity.ok("Hello user " + authService.getAuthentication().getPrincipal() + "!");
+    }
+
+    @GetMapping("/home")
+    public TestResponse home() {
+        return new TestResponse("HELLO FROM SERVER");
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

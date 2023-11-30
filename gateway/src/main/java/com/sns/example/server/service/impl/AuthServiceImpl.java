@@ -31,11 +31,11 @@ public final class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(AuthRequest request) {
+    public JwtResponse login(AuthRequest request) {
         JwtResponse response = client.login(request);
         validateToken(response.getAccessToken());
 
-        return response.getAccessToken();
+        return response;
     }
 
     @Override

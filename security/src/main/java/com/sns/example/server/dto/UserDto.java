@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
-public class RefreshJwtRequest {
+public class UserDto {
 
-    public String refreshToken;
+    private String firstName;
+    private String lastName;
 
 }

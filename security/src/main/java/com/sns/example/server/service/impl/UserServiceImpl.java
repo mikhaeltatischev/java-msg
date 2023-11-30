@@ -1,6 +1,7 @@
 package com.sns.example.server.service.impl;
 
 import com.sns.example.server.dto.NewUser;
+import com.sns.example.server.dto.UserDto;
 import com.sns.example.server.exception.UserLoginExistsException;
 import com.sns.example.server.exception.UserNotFoundException;
 import com.sns.example.server.model.User;
@@ -21,13 +22,13 @@ public final class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
-    public User registration(NewUser user) {
+    public UserDto registration(NewUser user) {
         checkUserLogin(user.getLogin());
         User savedUser = repository.save(toUser(user));
 
         log.info("User: " + savedUser + " saved");
 
-        return savedUser;
+        return new UserDto(user.getFirstName(), user.getLastName());
     }
 
     @Override

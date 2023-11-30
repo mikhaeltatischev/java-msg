@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login page</title>
+    <link th:href="@{css/login.css}" rel="stylesheet"/>
 </head>
 <body>
+
+<div class="main">
+    <div class="container">
+        <div class="accountData">
+            <h1>Enter account data</h1>
+        </div>
+        <form method="POST">
+            <div class="block">
+                <p><input type="text" class="field" name="login" placeholder="Login" aria-disabled="false" id="Login"></p>
+                <p><input type="password" class="field" name="password" placeholder="Password" aria-disabled="false" id="Password"></p>
+
+                <button type="submit" class="button">CONTINUE</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

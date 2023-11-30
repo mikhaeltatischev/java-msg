@@ -1,7 +1,7 @@
 package com.sns.example.server.controller;
 
 import com.sns.example.server.dto.NewUser;
-import com.sns.example.server.model.User;
+import com.sns.example.server.dto.UserDto;
 import com.sns.example.server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class RegistrationController {
     private final UserService service;
 
     @PostMapping
-    public ResponseEntity<User> registration(@Valid @RequestBody NewUser user) {
+    public ResponseEntity<UserDto> registration(@Valid @RequestBody NewUser user) {
         return ResponseEntity.ok(service.registration(user));
     }
 

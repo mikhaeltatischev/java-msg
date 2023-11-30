@@ -24,4 +24,5 @@ public class NewUser {
     @NotBlank
     @Length(min = 2, max = 255)
     private String lastName;
+
 }
